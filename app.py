@@ -20,7 +20,7 @@ def upload_file():
             output_image.save(byte_io, 'PNG')
             byte_io.seek(0)
             return send_file(byte_io, mimetype='image/png', 
-                             as_attachment=True, download_name='_rmbg.png')
+                             as_attachment=True, download_name=f'{file.filename.split(".")[0]}_rmbg.png')
     return render_template('index.html')
 
 if __name__ == '__main__':
