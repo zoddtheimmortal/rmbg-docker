@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>rembg</title>
+		<style></style>
+	</head>
+	<body>
+		<h1>rembg</h1>
+		<div id="dropzone" class="drop-zone">
+			<form
+				id="uploadForm"
+				action="/"
+				method="post"
+				enctype="multipart/form-data"
+			>
+				<input type="file" id="fileInput" name="file" />
+				<input type="submit" value="rm" />
+			</form>
+		</div>
+		<script>
+			let dropZone = document.getElementById("dropzone");
+			let uploadForm = document.getElementById("uploadForm");
+			let fileInput = document.getElementById("fileInput");
+
+			dropZone.addEventListener("click", function () {
+				fileInput.click();
+			});
+
+			fileInput.addEventListener("change", function () {
+				if (fileInput.files.length > 0) {
+					uploadForm.submit();
+				}
+			});
+
+			dropZone.addEventListener("dragover", function (e) {
+				this.classList.add("drag-over");
+			});
+
+			dropZone.addEventListener("dragleave", function (e) {
+				this.classList.remove("drag-over");
+			});
+
+			dropZone.addEventListener("drop", function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+				this.classList.remove("drag-over");
+
+				let file = e.dataTransfer.files[0];
+				fileInput.files = e.dataTransfer.files;
+				uploadForm.submit();
+			});
+		</script>
+	</body>
+</html>
